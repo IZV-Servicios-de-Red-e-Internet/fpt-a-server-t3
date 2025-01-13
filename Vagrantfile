@@ -32,10 +32,10 @@ Vagrant.configure("2") do |config|
       apt-get install -y bind9 bind9-utils bind9-doc
 
       # copiar ficheros
-      cp -v /vagrant/config/dns/named /etc/default/
-      cp -v /vagrant/config/dns/named.conf.options /etc/bind
-      cp -v /vagrant/config/dns/named.conf.local /etc/bind
-      cp -v /vagrant/config/dns/db.* /var/lib/bind
+      cp -v /vagrant/dns/named /etc/default/
+      cp -v /vagrant/dns/named.conf.options /etc/bind
+      cp -v /vagrant/dns/named.conf.local /etc/bind
+      cp -v /vagrant/dns/db.* /var/lib/bind
 
       # reiniciar servicio
       systemctl restart bind9

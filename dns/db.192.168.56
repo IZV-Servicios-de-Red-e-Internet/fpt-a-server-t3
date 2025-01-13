@@ -1,14 +1,15 @@
-; BIND reverse data file for local loopback interface
+; Zona inversa sistema.sol
 $ORIGIN 56.168.192.in-addr.arpa.
-$TTL	604800
-@	IN	SOA	dns.sistema.sol. root.sistema.sol. (
+$TTL	86400
+@	IN	SOA	tierra.sistema.sol. root.sistema.sol. (
 			      1		; Serial
 			 604800		; Refresh
 			  86400		; Retry
 			2419200		; Expire
-			 604800 )	; Negative Cache TTL
+			  86400 )	; Negative Cache TTL
 ;
-@						IN		NS		dns.sistema.sol.
-100						IN		PTR		dns.sistema.sol.
-101     				IN      PTR     tierra.sistema.sol.
-102						IN		PTR		www.izv.ies.
+@	IN	NS	tierra.sistema.sol.
+101	IN	PTR	mercurio.sistema.sol.
+102	IN	PTR	venus.sistema.sol.
+103	IN	PTR	tierra.sistema.sol.
+104	IN	PTR	marte.sistema.sol.
