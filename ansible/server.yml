@@ -1,0 +1,50 @@
+---
+- name: Provisionar servidor DNS
+  hosts: tierra
+  become: true
+  tasks:
+    - name: Actualizar lista de paquetes
+      apt:
+        update_cache: true
+
+    - name: Instalar Bind9
+      apt:
+        name:
+        - bind9
+        - bind9-utils
+        - bind9-doc
+
+    - name: Configurar Bind9 named
+      copy:
+        src: /vagrant/dns/named
+        dest: /etc/default/
+        remote_src: yes
+
+    - name: Configurar Bind9 conf
+      copy:
+        src: /vagrant/dns/named.conf.local
+        dest: /etc/bind
+        remote_src: yes
+
+    - name: Configurar Bind9 conf
+      copy:
+        src: /vagrant/dns/named.conf.options
+        dest: /etc/bind
+        remote_src: yes
+
+    - name: Configurar Bind9 dbs
+      copy:
+        src: /vagrant/dns/db.sistema.sol
+        dest: /var/lib/bind
+        remote_src: yes
+
+    - name: Configurar Bind9 dbs
+      copy:
+        src: /vagrant/dns/db.192.168.56
+        dest: /var/lib/bind
+        remote_src: yes
+
+    - name: Reiniciar servicios de Grafana y Apache
+      systemd:
+        name: bind9
+        state: restarted
