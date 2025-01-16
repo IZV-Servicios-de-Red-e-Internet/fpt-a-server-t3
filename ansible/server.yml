@@ -4,47 +4,63 @@
   become: true
   tasks:
     - name: Actualizar lista de paquetes
-      apt:
+      ansible.builtin.package:
         update_cache: true
 
     - name: Instalar Bind9
-      apt:
+      ansible.builtin.package:
         name:
         - bind9
         - bind9-utils
         - bind9-doc
 
     - name: Configurar Bind9 named
-      copy:
-        src: /vagrant/dns/named
+      ansible.builtin.copy:
+        src: ../dns/named
         dest: /etc/default/
-        remote_src: yes
 
     - name: Configurar Bind9 conf
-      copy:
-        src: /vagrant/dns/named.conf.local
+      ansible.builtin.copy:
+        src: ../dns/named.conf.local
         dest: /etc/bind
-        remote_src: yes
 
     - name: Configurar Bind9 conf
-      copy:
-        src: /vagrant/dns/named.conf.options
+      ansible.builtin.copy:
+        src: ../dns/named.conf.options
         dest: /etc/bind
-        remote_src: yes
 
     - name: Configurar Bind9 dbs
-      copy:
-        src: /vagrant/dns/db.sistema.sol
+      ansible.builtin.copy:
+        src: ../dns/db.sistema.sol
         dest: /var/lib/bind
-        remote_src: yes
 
     - name: Configurar Bind9 dbs
-      copy:
-        src: /vagrant/dns/db.192.168.56
+      ansible.builtin.copy:
+        src: ../dns/db.192.168.56
         dest: /var/lib/bind
-        remote_src: yes
 
-    - name: Reiniciar servicios de Grafana y Apache
+    - name: Comprobar que funciona
+      command: named-checkconf
+
+    - name: Reiniciar servicio Bind9
       systemd:
         name: bind9
+        enabled: true
         state: restarted
+    
+    - name: Crear usuario "pepe"
+      ansible.builtin.user:
+        name: pepe
+        shell: /bin/bash
+        create_home: yes
+        password: ""
+    
+    - name: Copiar el directorio "pruebasFTP"con el archivo "datos1.txt"
+      ansible.builtin.copy:
+        src: ../pepe/pruebasFTP
+        dest: /home/pepe
+    
+    - name: Instalar vsftpd
+      ansible.builtin.package:
+        name:
+        - vsftpd
