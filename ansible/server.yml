@@ -57,10 +57,41 @@
     
     - name: Copiar el directorio "pruebasFTP"con el archivo "datos1.txt"
       ansible.builtin.copy:
-        src: ../pepe/pruebasFTP
+        src: ../usuarios/pepe/pruebasFTP
         dest: /home/pepe
     
     - name: Instalar vsftpd
       ansible.builtin.package:
         name:
         - vsftpd
+        
+    - name: Crear usuario "luis"
+      ansible.builtin.user:
+        name: luis
+        shell: /bin/bash
+        create_home: yes
+        password: ""
+
+    - name: Copiar los archivos "luis1.txt" y "luis2.txt"
+      ansible.builtin.copy:
+        src: ../usuarios/luis/
+        dest: /home/luis
+      
+    - name: Crear usuario "maria"
+      ansible.builtin.user:
+        name: maria
+        shell: /bin/bash
+        create_home: yes
+        password: ""
+      
+    - name: Copiar los archivos "maria1.txt" y "maria2.txt"
+      ansible.builtin.copy:
+        src: ../usuarios/maria/
+        dest: /home/maria
+
+    - name: Crear usuario "miguel"
+      ansible.builtin.user:
+        name: miguel
+        shell: /bin/bash
+        create_home: yes
+        password: ""
