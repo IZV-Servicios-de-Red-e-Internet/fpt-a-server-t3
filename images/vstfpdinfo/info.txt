@@ -1,0 +1,80 @@
+1. Instala el paquete vsftpd
+
+En ansible
+
+2. Comprueba que se ha creado el usuario ftp y que su directorio home es /srv/ftp. Busca estos
+datos en los archivos del sistema donde se guardan los usuarios, y donde se guardan los grupos
+de usuarios.
+
+vagrant@bookworm:~$ cat /etc/passwd | grep ftp
+ftp:x:104:112:ftp daemon,,,:/srv/ftp:/usr/sbin/nologin
+
+3. Comprueba que se ha creado el directorio /srv/ftp y que su propietario es el usuario root, y que su grupo es ftp.
+
+vagrant@bookworm:~$ ls -ld /srv/ftp
+drwxr-xr-x 2 root ftp 4096 Jan 16 17:25 /srv/ftp
+
+4. Lista los usuarios del sistema que no podrán acceder al servicio FTP.
+
+vagrant@bookworm:~$ cat /etc/ftpusers
+# /etc/ftpusers: list of users disallowed FTP access. See ftpusers(5).
+
+root
+daemon
+bin
+sys
+sync
+games
+man
+lp
+mail
+news
+uucp
+nobody
+
+5. Comprueba que el servidor está iniciado y en ejecución.
+
+vagrant@bookworm:~$ sudo systemctl status vsftpd
+● vsftpd.service - vsftpd FTP server
+     Loaded: loaded (/lib/systemd/system/vsftpd.service; enabled; preset: enabled)
+     Active: active (running) since Sat 2025-01-18 16:31:04 UTC; 7min ago
+    Process: 420 ExecStartPre=/bin/mkdir -p /var/run/vsftpd/empty (code=exited, status=0/SUCCESS)
+   Main PID: 425 (vsftpd)
+      Tasks: 1 (limit: 496)
+     Memory: 1.4M
+        CPU: 7ms
+     CGroup: /system.slice/vsftpd.service
+             └─425 /usr/sbin/vsftpd /etc/vsftpd.conf
+
+Jan 18 16:31:04 bookworm systemd[1]: Starting vsftpd.service - vsftpd FTP server...
+Jan 18 16:31:04 bookworm systemd[1]: Started vsftpd.service - vsftpd FTP server.
+
+6. Comprueba que el servidor está escuchando por el puerto 21.
+
+vagrant@bookworm:~$ sudo ss -tuln | grep :21
+tcp   LISTEN 0      32                  *:21              *:*     
+
+7. Realiza una copia de seguridad del archivo de configuración /etc/vsftpd.conf.
+
+En ansible
+
+8. Crea los usuarios locales luis, maria y miguel`.
+
+En ansible
+
+9. Inicia sesión como usuario luis y crea en su directorio home dos archivos de texto de nombres luis1.txt y luis2.txt
+
+En ansible
+
+10. Inicia sesión como usuario maria y crea en su directorio home dos archivos de texto de nombres maria1.txt y maria2.txt
+
+En ansible
+
+11. Modifica el archivo de configuración del servicio FTP tal como se propone en los pasos
+siguientes, de forma que todos los comentarios originales que trae por defecto el archivo de
+configuración se borren.
+
+sudo sed -i '/^#/d' /etc/vsftpd.conf
+sudo sed -i '/^$/d' /etc/vsftpd.conf
+
+Toda la configuración está en la carpeta vsftpd.

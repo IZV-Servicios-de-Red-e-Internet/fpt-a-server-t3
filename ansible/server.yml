@@ -64,6 +64,11 @@
       ansible.builtin.package:
         name:
         - vsftpd
+
+    - name: Copiar archivo vsftpd.conf
+      ansible.builtin.copy:
+        src: ../vsftpd/vsftpd.conf
+        dest: /etc/
         
     - name: Crear usuario "luis"
       ansible.builtin.user:
@@ -95,3 +100,19 @@
         shell: /bin/bash
         create_home: yes
         password: ""
+
+    - name: Mensaje para acceso anonimo
+      ansible.builtin.copy:
+        src: ../vsftpd/.message
+        dest: /srv/ftp/
+
+    - name: Lista de usuarios no enjaulados
+      ansible.builtin.copy:
+        src: ../vsftpd/vsftpd.chroot_list
+        dest: /etc/
+
+    - name: Reiniciar servicio
+      systemd:
+        name: vsftpd
+        enabled: true
+        state: restarted
