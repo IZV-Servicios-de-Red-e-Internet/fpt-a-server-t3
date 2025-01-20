@@ -13,18 +13,9 @@ Este repositorio contiene los pasos y configuraciones necesarios para implementa
 ---
 
 
-## Repository Structure
+## Estructura del repositorio
 
 
-## Requisitos Previos
-
-Antes de comenzar, asegúrate de cumplir con los siguientes requisitos:
-
-- Una máquina virtual o física con Debian o cualquier distribución basada en Linux.
-- Acceso de administrador (root) para realizar configuraciones del sistema.
-- Herramientas como `dig` o `nslookup` instaladas para validar la configuración DNS.
-
----
 
 ## Actividades Prácticas
 
