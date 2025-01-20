@@ -78,3 +78,6 @@ sudo sed -i '/^#/d' /etc/vsftpd.conf
 sudo sed -i '/^$/d' /etc/vsftpd.conf
 
 Toda la configuración está en la carpeta vsftpd.
+
+Seguridad:
+Darle a cada usuario una contraseña hash durante su creación 

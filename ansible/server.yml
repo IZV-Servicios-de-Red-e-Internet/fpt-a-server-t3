@@ -75,7 +75,7 @@
         name: luis
         shell: /bin/bash
         create_home: yes
-        password: ""
+        password: "$6$6UkLNAHQ22HVn6DQ$BDxQ7HBi7NI7yfLZnDPqP4Db0njrEChELYhO9SeOVqcXFNl3Hwn15h3TP/RA.u.RVzRzEEtLpeMqKUAiAex0f."
 
     - name: Copiar los archivos "luis1.txt" y "luis2.txt"
       ansible.builtin.copy:
@@ -87,7 +87,7 @@
         name: maria
         shell: /bin/bash
         create_home: yes
-        password: ""
+        password: "$6$iuXdQMLDN5Y.pQxF$DmFKznzTHYwGsVePKooa2fE08KO6/7pV/VWGlEcGL2uYzNpbc.6clOss6lkLBzt2kIYVkWWNCLIYh0txXIv8x/"
       
     - name: Copiar los archivos "maria1.txt" y "maria2.txt"
       ansible.builtin.copy:
@@ -99,7 +99,7 @@
         name: miguel
         shell: /bin/bash
         create_home: yes
-        password: ""
+        password: "$6$wZBDkcXMZ5wOjSwD$735l0HnGfBEmkOQ7Hy9iyi3hO3K4UIpfrZN7xTPMC..sXPPj/4nQwFHt8xf3vWn9cGdgFz1aU3H4EROtIJ79f/"
 
     - name: Mensaje para acceso anonimo
       ansible.builtin.copy:
@@ -110,6 +110,18 @@
       ansible.builtin.copy:
         src: ../vsftpd/vsftpd.chroot_list
         dest: /etc/
+
+    - name: Generar clave privada
+      command:
+        cmd: openssl genrsa -out /etc/ssl/private/sri.key 2048
+        creates: /etc/ssl/private/sri.key
+
+    - name: Crear certificado autofirmado
+      command:
+        cmd: >
+          openssl req -new -x509 -key /etc/ssl/private/sri.key -out /etc/ssl/certs/sri.pem -days 365
+          -subj "/C=ES/ST=Granada/L=Granada/O=Team3/OU=Team3/CN=tierra.sistema.sol"
+        creates: /etc/ssl/certs/sri.pem
 
     - name: Reiniciar servicio
       systemd:
