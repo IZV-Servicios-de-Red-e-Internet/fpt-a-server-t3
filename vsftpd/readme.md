@@ -111,3 +111,143 @@ ftp localhost
 
 
 
+
+
+```
+## Ejercicio 2.2
+### 1. Verificar si pftp está instalado
+
+### Comando para verificar si está instalado:
+```bash
+which pftp
+```
+- Si el comando muestra una ruta como `/usr/bin/pftp`, significa que está instalado.
+- Si no está instalado, el comando no devolverá ningún resultado.
+
+  ### Instalar pftp si no está instalado:
+
+#### En sistemas basados en Debian/Ubuntu:
+```bash
+sudo apt update
+sudo apt install ftp
+```
+
+## 2. Configurar el archivo `~/.netrc` para conexiones automáticas
+
+1. **Crear o editar el archivo `~/.netrc`:**
+   ```bash
+   nano ~/.netrc
+   ```
+
+2. **Agregar la configuración de un servidor FTP:**
+
+   Escribe en el archivo la siguiente estructura para cada servidor al que quieras conectarte:
+   ```plaintext
+   machine <nombre_del_servidor>
+   login <usuario>
+   password <contraseña>
+
+   ```
+ 3. **Guardar y salir del archivo:**
+
+   - En **nano**, presiona:
+     - `Ctrl + O` para guardar los cambios.
+     - Luego, presiona `Enter` para confirmar.
+     - Finalmente, `Ctrl + X` para salir.
+
+4. **Asegurar que el archivo tiene permisos restringidos (seguridad):**
+
+   Ejecuta el siguiente comando para garantizar que solo el propietario pueda acceder al archivo:
+   ```bash
+   chmod 600 ~/.netrc
+
+## 3. Probar la conexión automática
+
+Después de configurar el archivo `~/.netrc`, puedes conectarte automáticamente al servidor sin ingresar credenciales manualmente.
+
+### Usar pftp:
+```bash
+pftp tierra.sistema.sol
+
+
+```
+# ejericio 2.3
+## 1. Establecer conexión anónima al servidor `ftp.cica.es` desde `tierra.sistema.sol`
+
+Usa el comando `ftp` para conectarte de forma anónima:
+
+```bash
+ftp ftp.cica.es
+```
+
+## 2. Examinar el directorio actual en el servidor
+
+Después de conectarte al servidor, utiliza el siguiente comando para ver el directorio actual:
+
+```bash
+pwd
+```
+
+## 3. Examinar el directorio actual en el cliente
+
+Para ver el directorio actual del cliente (tu máquina local) mientras estás conectado al servidor FTP, usa:
+
+```bash
+!pwd
+```
+
+## 4. Listar los archivos en el servidor
+
+Para ver los archivos y carpetas en el directorio actual del servidor FTP, utiliza:
+
+```bash
+ls
+```
+## 5. Listar los archivos en el cliente
+
+Para listar los archivos en el directorio actual de tu máquina local (cliente) mientras estás conectado al servidor FTP, usa:
+
+```bash
+!ls
+```
+
+## 6. Descargar `/pub/check` del servidor al cliente
+
+Usa el comando `get` para descargar un archivo desde el servidor FTP a tu máquina local:
+
+```bash
+cd /pub
+get check
+```
+
+## 7. Crear el directorio imágenes en el cliente dentro de pruebasFTP  
+Para crear un directorio en el cliente:
+
+1. Sal de la sesión FTP temporalmente con !:
+
+```bash
+!mkdir -p pruebasFTP/imágenes
+
+```
+2. Confirma que se creó el directorio usando:
+
+```bash
+!ls pruebasFTP
+
+```
+## 8. Subir el archivo datos1.txt al servidor  
+Asegúrate de que el archivo `datos1.txt` exista en el cliente. Luego, usa el comando `put` para subirlo al servidor:
+
+```bash
+put datos1.txt
+```
+## 9. Cerrar la conexión  
+Para salir de la sesión FTP, usa:
+
+```bash
+bye
+
+
+
+
+
