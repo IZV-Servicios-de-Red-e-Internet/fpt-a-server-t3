@@ -59,6 +59,7 @@ Incluye los archivos del DNS.
 
 ### VSFTPD
 Incluye como se ha hecho y confirman que esta bien.
+
 [Mas detalles](./vsftpd/)
 
 ## Pruebas y Validación
