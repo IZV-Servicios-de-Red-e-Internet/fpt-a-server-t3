@@ -2,12 +2,12 @@
 
 Este documento explica los pasos para configurar un servidor DNS maestro en un entorno basado en Debian. Se incluye la configuración de zonas directas e inversas, así como la validación de su funcionamiento.
 
-###Requisitos Previos
+### Requisitos Previos
 1.**Red configurada en el rango 192.168.X.0/24.**
 2.**Acceso a una máquina virtual Debian llamada tierra para actuar como servidor DNS.**
 3.**Las otras máquinas virtuales (mercurio, venus, marte) configuradas con sus respectivas direcciones IP y nombres de dominio.**
 
-###Pasos para Configurar el Sevidor DNS
+### Pasos para Configurar el Sevidor DNS
 1.**Preparar el Sistema**
 Instalar el paquete bind9 en Debian:
   ```bash
@@ -65,7 +65,7 @@ zone "56.168.192.in-addr.arpa" {
     file "/var/lib/bind/db.192.168.56";
 };
 ```
-4.**Configuración Adicional.
+4.**Configuración Adicional**.
 Editar /etc/bind/named.conf.options para agregar un reenviador:
 ```bash
 options {
@@ -85,7 +85,7 @@ sudo named-checkzone sistema.sol /var/lib/bind/db.sistema.sol
 sudo named-checkzone 56.168.192.in-addr.arpa /var/lib/bind/db.192.168.56
 sudo systemctl restart bind9
 ```
-###Prueba del Servidor DNS
+### Prueba del Servidor DNS
 1. **En las máquinas clientes, configurar /etc/resolv.conf para usar tierra como servidor DNS:**
    ```bash
    nameserver 192.168.56.103
