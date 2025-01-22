@@ -95,7 +95,7 @@ sudo systemctl restart bind9
 ```bash
 dig @192.168.56.103 tierra.sistema.sol
 ```
-3.**Probar la resolución inversa:
+3. **Probar la resolución inversa**:
 ```bash
 dig -x 192.168.56.103 @192.168.56.103
 
