@@ -1,14 +1,14 @@
-## README: Configuración de un Servidor DNS y Prueba de Resolución
+## Configuración de un Servidor DNS y Prueba de Resolución
 
 Este documento explica los pasos para configurar un servidor DNS maestro en un entorno basado en Debian. Se incluye la configuración de zonas directas e inversas, así como la validación de su funcionamiento.
 
 ### Requisitos Previos
-1.**Red configurada en el rango 192.168.X.0/24.**
-2.**Acceso a una máquina virtual Debian llamada tierra para actuar como servidor DNS.**
-3.**Las otras máquinas virtuales (mercurio, venus, marte) configuradas con sus respectivas direcciones IP y nombres de dominio.**
+1. **Red configurada en el rango 192.168.X.0/24.**
+2. **Acceso a una máquina virtual Debian llamada tierra para actuar como servidor DNS.**
+3. **Las otras máquinas virtuales (mercurio, venus, marte) configuradas con sus respectivas direcciones IP y nombres de dominio.**
 
 ### Pasos para Configurar el Sevidor DNS
-1.**Preparar el Sistema**
+1. **Preparar el Sistema**
 Instalar el paquete bind9 en Debian:
   ```bash
 sudo apt update
@@ -16,7 +16,7 @@ sudo apt install bind9
 
 ```
 
-2.**Archivos de Configuración**
+2. **Archivos de Configuración**
 Crear el archivo de configuración de la zona directa (/var/lib/bind/db.sistema.sol):
 ```bash
 $ORIGIN sistema.sol.
@@ -52,7 +52,7 @@ $TTL    86400
 103     IN  PTR   tierra.sistema.sol.
 104     IN  PTR   marte.sistema.sol.
 ```
-3.**Actualizar el Archivo de Configuración Principal**
+3. **Actualizar el Archivo de Configuración Principal**
 Modificar /etc/bind/named.conf.local para incluir las zonas:
 ```bash
 zone "sistema.sol" {
@@ -65,7 +65,7 @@ zone "56.168.192.in-addr.arpa" {
     file "/var/lib/bind/db.192.168.56";
 };
 ```
-4.**Configuración Adicional**.
+4. **Configuración Adicional**.
 Editar /etc/bind/named.conf.options para agregar un reenviador:
 ```bash
 options {
@@ -77,7 +77,7 @@ options {
     listen-on-v6 { any; };
 };
 ```
-5.**Reinciar el Servicio DNS**
+5. **Reinciar el Servicio DNS**
 Verificar y reiniciar el servicio:
 ```bash
 sudo named-checkconf
@@ -91,7 +91,7 @@ sudo systemctl restart bind9
    nameserver 192.168.56.103
     search sistema.sol
 
-2.**Probar la resolución directa**: 
+2. **Probar la resolución directa**: 
 ```bash
 dig @192.168.56.103 tierra.sistema.sol
 ```
@@ -100,6 +100,3 @@ dig @192.168.56.103 tierra.sistema.sol
 dig -x 192.168.56.103 @192.168.56.103
 
 ```
-
-
-

@@ -65,7 +65,7 @@ El archivo Ansible está diseñado para cumplir con los siguientes objetivos:
         ansible.builtin.copy:
           src: ../usuarios/luis/
           dest: /home/luis
-### Configuracióni del Servidor FTP Seguro
+### Configuración del Servidor FTP Seguro
   1. **Instalación de vsftpd**:
      Se instala el paquete vsftpd para el servicio FTP.
      ```yaml
@@ -102,9 +102,7 @@ El archivo Ansible está diseñado para cumplir con los siguientes objetivos:
             name: vsftpd
             enabled: true
             state: restarted
-
-
-      
+   
      
 
 

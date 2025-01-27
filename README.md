@@ -46,7 +46,7 @@ Este repositorio contiene los pasos y configuraciones necesarios para implementa
 
 ---
 
-### ansible
+### Ansible
 Incluye playbooks de Ansible para aprovisionar el servidor.
 
 [Mas detalles](./ansible/)
@@ -61,4 +61,3 @@ Incluye los archivos del DNS.
 Incluye como se ha hecho y confirman que esta bien.
 
 [Mas detalles](./vsftpd/)
-
