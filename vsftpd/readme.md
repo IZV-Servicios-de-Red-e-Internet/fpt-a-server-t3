@@ -246,6 +246,112 @@ Para salir de la sesión FTP, usa:
 
 ```bash
 bye
+```
+
+
+
+# Configuración de vsftpd
+
+## Imágenes y pasos
+
+
+---
+
+### Paso 1
+![Paso 1](../images/vstfpdinfo/4.png)
+-  Conexión al servidor FTP con credenciales específicas.
+
+---
+
+### Paso 2
+![Paso 2](../images/vstfpdinfo/5.png)
+-  Uso de la terminal para conectarse al servidor FTP como usuario `luis` y listar los archivos disponibles.
+
+---
+
+### Paso 3
+![Paso 3](../images/vstfpdinfo/6.png)
+-  Conexión al servidor FTP como usuario `maria`, navegando entre directorios y listando carpetas.
+
+---
+
+### Paso 4
+![Paso 4](../vstfpdinfo/7.png)
+-  Conexión al servidor FTP en modo anónimo, mostrando acceso limitado a los directorios públicos.
+
+# Uso de Cliente Gráfico para FTP
+### Paso 1: Abrir FileZilla
+![Paso 1](../images/gráfico/1.png)
+-  Comando para instalar FileZilla en sistemas basados en Debian/Ubuntu. Usa el comando `sudo apt install filezilla`.
+
+---
+
+### Paso 2: Interfaz inicial de FileZilla
+![Paso 2](../images/gráfico/2.png)
+-  Interfaz inicial de FileZilla al abrir el programa. Aquí se pueden configurar los parámetros para conectar a un servidor FTP.
+
+---
+
+### Paso 3: Configuración de un nuevo sitio FTP
+![Paso 3](../gráfico/3.png)
+-  Creación de un nuevo sitio FTP en FileZilla, configurando el host (`ftp.rediris.es`), tipo de cifrado y acceso anónimo.
+
+---
+
+### Paso 4: Advertencia sobre conexión insegura
+![Paso 4](../images/gráfico/4.png)
+-  Al conectar al servidor, FileZilla muestra una advertencia sobre el uso de FTP sin cifrado (inseguro). Puedes continuar aceptando la conexión.
+
+---
+
+### Paso 5: Estado de la conexión al servidor
+![Paso 5](./gráfico/5.png)
+-  Verificación del estado de la conexión al servidor FTP (`ftp.rediris.es`), mostrando que se ha conectado exitosamente.
+
+---
+
+### Paso 6: Transferencia de archivos desde el cliente
+![Paso 6](../images/gráfico/6.png)
+-  Transferencia de un archivo (`welcome.msg`) desde el servidor FTP al cliente local.
+
+---
+
+### Paso 7: Exploración de los archivos en el cliente
+![Paso 7](../images/gráfico/7.png)
+-  Archivo transferido (`welcome.msg`) mostrado en el sistema de archivos local y abierto en un editor de texto.
+
+---
+
+### Paso 8: Navegación en los directorios del cliente y servidor
+![Paso 8](../gráfico/8.png)
+-  Vista comparativa de los directorios locales y remotos en FileZilla, destacando la transferencia completada.
+
+---
+
+### Paso 9: Servicios reiniciados en el sistema
+![Paso 9](../images/gráfico/9.png)
+-  Configuración del sistema mostrando los servicios a reiniciar tras una instalación o actualización.
+
+---
+
+### Paso 10: Resultado final
+![Paso 10](../images/gráfico/10.png)
+-  Proceso finalizado con éxito, mostrando que FileZilla está configurado y listo para gestionar conexiones FTP.
+
+---
+
+#Preguntas
+Preguntas: Examina la ventana de los mensajes intercambiados y contesta: a. ¿Qué modo ha usado el cliente (activo o pasivo) al descargar el listado de archivos del servidor?
+
+Filezilla por defecto utiliza el modo pasivo, lo que facilita el acceso a través de cortafuegos y routers NAT, ya que el cliente inicia la conexión tanto para los comandos como para la transferencia de datos, lo que generalmente funciona mejor en entornos restringidos.
+
+b. ¿Cuál es la IP del servidor de ftp.rediris.es?
+
+Como podemos ver en al imagen la 130.206.13.2
+
+c. ¿De los 6 dígitos que aparecen en el mensaje 227 Entering Passive Mode (…) qué significan los 2 últimos números?
+
+227 Entering Passive Mode (192,0,2,1,104,31) Los dos últimos números son los dos bytes que comprenden el puerto remoto para la conexión de datos pasiva.
 
 
 
