@@ -62,11 +62,3 @@ Incluye como se ha hecho y confirman que esta bien.
 
 [Mas detalles](./vsftpd/)
 
-## Pruebas y Validación
-
-1. Realiza conexiones anónimas y autenticadas desde clientes de consola y gráficos.
-
-
----
-
----
