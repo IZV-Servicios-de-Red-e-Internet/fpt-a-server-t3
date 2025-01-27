@@ -103,13 +103,6 @@ El archivo Ansible está diseñado para cumplir con los siguientes objetivos:
             enabled: true
             state: restarted
 
-### Cómo Usar Este Playbook
-  1.**Clona este repositorio en tu máquina local**
-      git clone <url-repositorio>
-      cd <directorio>
-  2.**Edita el archivo de inventario para definir los hosts las IPs correspondientes**.
-  3.** Ejecuta el playbook con Ansible**.
-        ansible-playbook -i hosts playbook.yml
 
       
      
