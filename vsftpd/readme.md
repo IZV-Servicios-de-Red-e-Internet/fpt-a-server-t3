@@ -276,7 +276,7 @@ bye
 ---
 
 ### Paso 4
-![Paso 4](../vstfpdinfo/7.png)
+![Paso 4](../images/vstfpdinfo/7.png)
 -  Conexión al servidor FTP en modo anónimo, mostrando acceso limitado a los directorios públicos.
 
 # Uso de Cliente Gráfico para FTP
@@ -293,7 +293,7 @@ bye
 ---
 
 ### Paso 3: Configuración de un nuevo sitio FTP
-![Paso 3](../gráfico/3.png)
+![Paso 3](../images/gráfico/3.png)
 -  Creación de un nuevo sitio FTP en FileZilla, configurando el host (`ftp.rediris.es`), tipo de cifrado y acceso anónimo.
 
 ---
@@ -305,7 +305,7 @@ bye
 ---
 
 ### Paso 5: Estado de la conexión al servidor
-![Paso 5](./gráfico/5.png)
+![Paso 5](../images/gráfico/5.png)
 -  Verificación del estado de la conexión al servidor FTP (`ftp.rediris.es`), mostrando que se ha conectado exitosamente.
 
 ---
@@ -323,7 +323,7 @@ bye
 ---
 
 ### Paso 8: Navegación en los directorios del cliente y servidor
-![Paso 8](../gráfico/8.png)
+![Paso 8](../images/gráfico/8.png)
 -  Vista comparativa de los directorios locales y remotos en FileZilla, destacando la transferencia completada.
 
 ---
