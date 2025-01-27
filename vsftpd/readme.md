@@ -340,7 +340,7 @@ bye
 
 ---
 
-#Preguntas
+# Preguntas
 Preguntas: Examina la ventana de los mensajes intercambiados y contesta: a. ¿Qué modo ha usado el cliente (activo o pasivo) al descargar el listado de archivos del servidor?
 
 Filezilla por defecto utiliza el modo pasivo, lo que facilita el acceso a través de cortafuegos y routers NAT, ya que el cliente inicia la conexión tanto para los comandos como para la transferencia de datos, lo que generalmente funciona mejor en entornos restringidos.
