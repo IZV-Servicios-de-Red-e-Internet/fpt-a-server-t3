@@ -1,7 +1,11 @@
 name: run-ansible-lint
 on:
+  push:
+    branches:
+      - main
   pull_request:
-    branches: ["main"]
+    branches:
+      - main
 jobs:
   run-ansible-lint:
     runs-on: ubuntu-latest
@@ -9,9 +13,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run ansible-lint
         uses: ansible/ansible-lint@main
-        # optional (see below):
         with:
-          args: ""
+          args: "--force-color"
           setup_python: "true"
-          working_directory: ""
-          requirements_file: ""
+          working_directory: "ansible"
