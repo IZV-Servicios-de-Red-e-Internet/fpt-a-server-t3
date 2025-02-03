@@ -13,7 +13,6 @@ Instalar el paquete bind9 en Debian:
   ```bash
 sudo apt update
 sudo apt install bind9
-
 ```
 
 2. **Archivos de Configuración**
@@ -87,16 +86,15 @@ sudo systemctl restart bind9
 ```
 ### Prueba del Servidor DNS
 1. **En las máquinas clientes, configurar /etc/resolv.conf para usar tierra como servidor DNS:**
-   ```bash
-   nameserver 192.168.56.103
+    ```bash
+    nameserver 192.168.56.103
     search sistema.sol
-
+    ```
 2. **Probar la resolución directa**: 
-```bash
-dig @192.168.56.103 tierra.sistema.sol
-```
+    ```bash
+    dig @192.168.56.103 tierra.sistema.sol
+    ```
 3. **Probar la resolución inversa**:
-```bash
-dig -x 192.168.56.103 @192.168.56.103
-
-```
+    ```bash
+    dig -x 192.168.56.103 @192.168.56.103
+    ```
