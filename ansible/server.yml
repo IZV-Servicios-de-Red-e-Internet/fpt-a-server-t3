@@ -61,6 +61,7 @@
       ansible.builtin.copy:
         src: ../usuarios/pepe/pruebasFTP
         dest: /home/pepe
+        mode: '0644'
 
     - name: Instalar vsftpd
       ansible.builtin.package:
