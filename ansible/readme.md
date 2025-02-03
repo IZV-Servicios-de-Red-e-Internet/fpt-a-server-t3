@@ -26,6 +26,7 @@ El archivo Ansible está diseñado para cumplir con los siguientes objetivos:
    - name: Actualizar lista de paquetes
      ansible.builtin.package:
        update_cache: true
+   ```
 2. **Instalación de Bind9**:
    Se instalan los paquetes necesarios para el servidio DNS.
    ```yaml
@@ -35,6 +36,7 @@ El archivo Ansible está diseñado para cumplir con los siguientes objetivos:
       - bind9
       - bind9-utils
       - bind9-doc
+   ```
   3. **Copia de Archivos de Cofiguración**:
      Se copian archivos personalizados para configurar las zonas DNS y los archivos de opciones.
      ```yaml
@@ -42,12 +44,16 @@ El archivo Ansible está diseñado para cumplir con los siguientes objetivos:
         ansible.builtin.copy:
           src: ../dns/named.conf.local
           dest: /etc/bind
-
-  4. **Validación y Reinicio**:
-     Se verifica la configuración y ser reinicia el servicio.
+      ```
+  4. **Reinicio**:
+     Se reinicia el servicio bind9.
      ```yaml
-       - name: Comprobar que funciona
-         command: named-checkconf
+     - name: Reiniciar servicio Bind9
+       systemd:
+        name: bind9
+        enabled: true
+        state: restarted
+      ```
 ### Configuración de Ususuarios y Directorios
   1. **Creación de Usuarios**:
      Se crean usuarios con sus respectivos directorios y contraseñas cifradas.
@@ -58,6 +64,7 @@ El archivo Ansible está diseñado para cumplir con los siguientes objetivos:
           shell: /bin/bash
           create_home: yes
           password: "<hash>"
+     ```
   2. **Copia de Archivos**:
      Se copian los archivos de usuario a sus respectivos directorios.
      ```yaml
@@ -65,6 +72,7 @@ El archivo Ansible está diseñado para cumplir con los siguientes objetivos:
         ansible.builtin.copy:
           src: ../usuarios/luis/
           dest: /home/luis
+     ```
 ### Configuración del Servidor FTP Seguro
   1. **Instalación de vsftpd**:
      Se instala el paquete vsftpd para el servicio FTP.
@@ -73,7 +81,7 @@ El archivo Ansible está diseñado para cumplir con los siguientes objetivos:
         ansible.builtin.package:
           name:
           - vsftpd
-
+      ```
   2. **Archivo de Configuración**:
     Se copia el archivo personalizado vsftpd.conf con las configuraciones necesarias.
      ```yaml
@@ -81,12 +89,14 @@ El archivo Ansible está diseñado para cumplir con los siguientes objetivos:
         ansible.builtin.copy:
           src: ../vsftpd/vsftpd.conf
           dest: /etc/
+     ```
   3. **Certificados SSL**:
      Se generan claves y certificados autofimados para asegurar las conexiones.
      ```
        -name: Generar clave privada
        command:
            cmd: openssl genrsa -out /etc/ssl/private/sri.key 2048
+     ```
   4. **Configuración de Usuarios No Enjaulados**:
      Se define una lista de susarios que no estarán restringidos a su directorio home.
      ```yaml
@@ -94,6 +104,7 @@ El archivo Ansible está diseñado para cumplir con los siguientes objetivos:
          ansible.builtin.copy:
            src: ../vsftpd/vsftpd.chroot_list
            dest: /etc/
+     ```
   5. **Reinicio del Servicio**:
      Se reinicia el servicio FTP para aplicar los cambios.
      ```yaml
@@ -102,6 +113,7 @@ El archivo Ansible está diseñado para cumplir con los siguientes objetivos:
             name: vsftpd
             enabled: true
             state: restarted
+     ```
    
      
 
