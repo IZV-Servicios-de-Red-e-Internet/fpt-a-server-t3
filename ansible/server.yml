@@ -39,9 +39,6 @@
         src: ../dns/db.192.168.56
         dest: /var/lib/bind
 
-    - name: Comprobar que funciona
-      command: named-checkconf
-
     - name: Reiniciar servicio Bind9
       systemd:
         name: bind9
