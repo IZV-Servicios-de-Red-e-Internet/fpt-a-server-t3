@@ -10,9 +10,9 @@
     - name: Instalar Bind9
       ansible.builtin.package:
         name:
-        - bind9
-        - bind9-utils
-        - bind9-doc
+          - bind9
+          - bind9-utils
+          - bind9-doc
 
     - name: Configurar Bind9 named
       ansible.builtin.copy:
@@ -23,6 +23,7 @@
       ansible.builtin.copy:
         src: ../dns/named.conf.local
         dest: /etc/bind
+        mode: '0644'
 
     - name: Configurar Bind9 conf
       ansible.builtin.copy:
@@ -44,84 +45,89 @@
         name: bind9
         enabled: true
         state: restarted
-    
+
     - name: Crear usuario "pepe"
       ansible.builtin.user:
         name: pepe
         shell: /bin/bash
-        create_home: yes
+        create_home: true
         password: ""
-    
+
     - name: Copiar el directorio "pruebasFTP"con el archivo "datos1.txt"
       ansible.builtin.copy:
         src: ../usuarios/pepe/pruebasFTP
         dest: /home/pepe
-    
+
     - name: Instalar vsftpd
       ansible.builtin.package:
         name:
-        - vsftpd
+          - vsftpd
 
     - name: Copiar archivo vsftpd.conf
       ansible.builtin.copy:
         src: ../vsftpd/vsftpd.conf
         dest: /etc/
-        
+        mode: '0644'
+
     - name: Crear usuario "luis"
       ansible.builtin.user:
         name: luis
         shell: /bin/bash
-        create_home: yes
+        create_home: true
         password: "$6$6UkLNAHQ22HVn6DQ$BDxQ7HBi7NI7yfLZnDPqP4Db0njrEChELYhO9SeOVqcXFNl3Hwn15h3TP/RA.u.RVzRzEEtLpeMqKUAiAex0f."
 
     - name: Copiar los archivos "luis1.txt" y "luis2.txt"
       ansible.builtin.copy:
         src: ../usuarios/luis/
         dest: /home/luis
-      
+        mode: '0644'
+
     - name: Crear usuario "maria"
       ansible.builtin.user:
         name: maria
         shell: /bin/bash
-        create_home: yes
+        create_home: true
         password: "$6$iuXdQMLDN5Y.pQxF$DmFKznzTHYwGsVePKooa2fE08KO6/7pV/VWGlEcGL2uYzNpbc.6clOss6lkLBzt2kIYVkWWNCLIYh0txXIv8x/"
-      
+
     - name: Copiar los archivos "maria1.txt" y "maria2.txt"
       ansible.builtin.copy:
         src: ../usuarios/maria/
         dest: /home/maria
+        mode: '0644'
 
     - name: Crear usuario "miguel"
       ansible.builtin.user:
         name: miguel
         shell: /bin/bash
-        create_home: yes
+        create_home: true
         password: "$6$wZBDkcXMZ5wOjSwD$735l0HnGfBEmkOQ7Hy9iyi3hO3K4UIpfrZN7xTPMC..sXPPj/4nQwFHt8xf3vWn9cGdgFz1aU3H4EROtIJ79f/"
 
     - name: Mensaje para acceso anonimo
       ansible.builtin.copy:
         src: ../vsftpd/.message
         dest: /srv/ftp/
+        mode: '0644'
 
     - name: Lista de usuarios no enjaulados
       ansible.builtin.copy:
         src: ../vsftpd/vsftpd.chroot_list
         dest: /etc/
+        mode: '0644'
 
     - name: Generar clave privada
-      command:
+      ansible.builtin.command:
         cmd: openssl genrsa -out /etc/ssl/private/sri.key 2048
         creates: /etc/ssl/private/sri.key
 
     - name: Crear certificado autofirmado
-      command:
+      ansible.builtin.command:
         cmd: >
           openssl req -new -x509 -key /etc/ssl/private/sri.key -out /etc/ssl/certs/sri.pem -days 365
           -subj "/C=ES/ST=Granada/L=Granada/O=Team3/OU=Team3/CN=tierra.sistema.sol"
         creates: /etc/ssl/certs/sri.pem
 
     - name: Reiniciar servicio
-      systemd:
+      ansible.builtin.systemd:
         name: vsftpd
         enabled: true
         state: restarted
