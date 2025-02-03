@@ -18,6 +18,7 @@
       ansible.builtin.copy:
         src: ../dns/named
         dest: /etc/default/
+        mode: '0644'
 
     - name: Configurar Bind9 conf
       ansible.builtin.copy:
@@ -29,19 +30,22 @@
       ansible.builtin.copy:
         src: ../dns/named.conf.options
         dest: /etc/bind
+        mode: '0644'
 
     - name: Configurar Bind9 dbs
       ansible.builtin.copy:
         src: ../dns/db.sistema.sol
         dest: /var/lib/bind
+        mode: '0644'
 
     - name: Configurar Bind9 dbs
       ansible.builtin.copy:
         src: ../dns/db.192.168.56
         dest: /var/lib/bind
+        mode: '0644'
 
     - name: Reiniciar servicio Bind9
-      systemd:
+      ansible.builtin.systemd:
         name: bind9
         enabled: true
         state: restarted
