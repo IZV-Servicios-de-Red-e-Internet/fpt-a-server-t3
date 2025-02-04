@@ -1,0 +1,144 @@
+= Configuración y Uso de FTP en Linux
+
+Este documento describe los pasos y configuraciones necesarias para implementar y gestionar un servidor FTP en un entorno Linux. Se incluyen actividades prácticas para el uso de clientes FTP tanto en línea de comandos como en interfaz gráfica. Además, se abordan aspectos de seguridad para garantizar conexiones seguras mediante SSL/TLS.
+
+== Características Principales
+
+    * *Servidor DNS*: Configuración de un servidor DNS maestro con autoridad sobre el dominio *_sistema.sol_*.
+
+    * *Cliente FTP*: Uso de clientes FTP en línea de comandos y herramientas gráficas para interactuar con servidores remotos.
+
+    * *Servidor FTP*: Instalación y configuración del servidor *_vsftpd_* para la transferencia de archivos.
+
+    * *Seguridad en FTP*: Configuración de conexiones seguras mediante SSL/TLS para evitar intercepciones de datos.
+
+    * *Pruebas y Validación*: Actividades prácticas para comprobar la correcta configuración y funcionamiento del sistema.
+
+== Tecnologías Utilizadas
+
+    * *Vagrant*
+    * *Ansible*
+    * *DNS*
+    * *FTP*
+
+== Estructura del Repositorio
+
+[source,bash]
+----
+├── LICENSE
+├── README.md
+├── Vagrantfile
+├── ansible
+│   ├── ansible.cfg
+│   ├── hosts
+│   ├── readme.md
+│   └── server.yml
+├── dns
+│   ├── db.192.168.56
+│   ├── db.sistema.sol
+│   ├── named
+│   ├── named.conf.local
+│   └── named.conf.options
+├── docs
+│   ├── Ansible.adoc
+│   ├── Vsftpd.adoc
+│   └── Dns.adoc
+├── images
+├── usuarios
+│   ├── luis
+│   │   ├── luis1.txt
+│   │   └── luis2.txt
+│   ├── maria
+│   │   ├── maria1.txt
+│   │   └── maria2.txt
+│   └── pepe
+│       └── pruebasFTP
+│           └── datos1.txt
+└── vsftpd
+    ├── vsftpd.chroot_list
+    ├── vsftpd.conf
+    └── vsftpd.conf.bak
+----
+
+== Actividades Prácticas
+
+A continuación, se describen las actividades recomendadas para implementar y probar un entorno FTP en Linux.
+
+=== Configuración Inicial
+
+    . Configurar una red local con un rango IP *_192.168.X.0/24_*.
+
+    . Instalar y configurar un servidor DNS con autoridad sobre sistema.sol.
+
+    . Asegurar que las máquinas virtuales usen *_tierra.sistema.sol_* como servidor DNS.
+
+=== Uso del Cliente FTP en Línea de Comandos
+
+    . Conectar a un servidor FTP público como *_ftp.cica.es_* usando el cliente *_pftp_*.
+
+    . Listar el contenido del servidor con ls.
+
+    . Descargar un archivo con get archivo.txt.
+
+    . Crear un directorio en el servidor con mkdir pruebas.
+
+    . Subir un archivo con put documento.txt.
+
+    . Cerrar la sesión FTP con bye.
+
+=== Uso de un Cliente Gráfico
+
+    . Instalar un cliente FTP gráfico como FileZilla o gFTP.
+
+    . Conectar al servidor *_ftp.rediris.es_*.
+
+    . Explorar la interfaz y analizar los mensajes de conexión.
+
+    . Subir y descargar archivos para verificar la funcionalidad.
+
+=== Instalación del Servidor FTP
+
+    . Instalar el servicio *_vsftpd_* en una máquina Linux con:
+
+        sudo apt update && sudo apt install vsftpd
+
+    . Editar el archivo de configuración /etc/vsftpd.conf para definir restricciones de acceso y permisos.
+
+    . Crear usuarios FTP y configurar sus directorios personales.
+
+    . Reiniciar el servicio para aplicar cambios con:
+
+        sudo systemctl restart vsftpd
+
+=== Configuración Segura del Servidor FTP
+
+    . Instalar openssl para generar certificados SSL:
+        
+        sudo apt install openssl
+
+    . Crear un certificado autofirmado:
+        
+        openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/vsftpd.pem -out /etc/ssl/private/vsftpd.pem
+
+    . Configurar vsftpd para usar SSL/TLS agregando las siguientes líneas en /etc/vsftpd.
+        
+        conf:
+        ssl_enable=YES
+        rsa_cert_file=/etc/ssl/private/vsftpd.pem
+        rsa_private_key_file=/etc/ssl/private/vsftpd.pem
+
+    . Reiniciar el servicio y probar la conexión segura desde un cliente compatible.
+
+== Secciones Adicionales
+
+=== Automatización con Ansible El repositorio incluye playbooks de Ansible para aprovisionar el servidor FTP y DNS de forma automática.
+
+Ver detalles en: link:./docs/Ansible.adoc[Directorio Ansible]
+
+=== Configuración del Servidor DNS Contiene los archivos de configuración de bind para la resolución de nombres en la red.
+
+Ver detalles en: link:./docs/Dns.adoc[Directorio DNS]
+
+=== Configuración de VSFTPD Incluye configuraciones y pruebas de seguridad para el servidor FTP.
+
+Ver detalles en: link:./docs/Vsftpd.adoc[Directorio VSFTPD]

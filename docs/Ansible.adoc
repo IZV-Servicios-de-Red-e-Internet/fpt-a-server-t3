@@ -1,0 +1,124 @@
+= Configuración Automática de Servidores con Ansible
+
+Este documento describe el uso de Ansible para la automatización de la configuración de un servidor DNS, un servidor FTP y la creación de usuarios y certificados en un entorno Debian.
+
+== Resumen
+
+El archivo de Ansible tiene los siguientes objetivos:
+
+. Configurar un servidor DNS (`Bind9`) con autoridad sobre el dominio `sistema.sol`.
+. Crear usuarios con directorios y archivos predeterminados.
+. Configurar e instalar un servidor FTP seguro (`vsftpd`), incluyendo conexiones anónimas y autenticadas.
+. Generar claves y certificados SSL para asegurar las comunicaciones.
+. Reiniciar y validar los servicios configurados.
+
+== Estructura de Tareas
+
+=== Configuración del Servidor DNS
+
+* *Actualizar lista de paquetes*: Se asegura de que la lista de paquetes esté actualizada antes de instalar `Bind9`.
+[source,yaml]
+----
+- name: Actualizar lista de paquetes
+  ansible.builtin.package:
+    update_cache: true
+----
+
+* *Instalación de Bind9*: Se instalan los paquetes necesarios para el servicio DNS.
+[source,yaml]
+----
+- name: Instalar Bind9
+  ansible.builtin.package:
+    name:
+      - bind9
+      - bind9-utils
+      - bind9-doc
+----
+
+* *Copia de archivos de configuración*: Se copian archivos personalizados para configurar las zonas DNS y los archivos de opciones.
+[source,yaml]
+----
+- name: Configurar Bind9 conf
+  ansible.builtin.copy:
+    src: ../dns/named.conf.local
+    dest: /etc/bind
+----
+
+* *Reinicio*: Se reinicia el servicio `bind9` para aplicar los cambios.
+[source,yaml]
+----
+- name: Reiniciar servicio Bind9
+  systemd:
+    name: bind9
+    enabled: true
+    state: restarted
+----
+
+=== Configuración de Usuarios y Directorios
+
+* *Creación de usuarios*: Se crean usuarios con sus respectivos directorios y contraseñas cifradas.
+[source,yaml]
+----
+- name: Crear usuario "luis"
+  ansible.builtin.user:
+    name: luis
+    shell: /bin/bash
+    create_home: yes
+    password: "<hash>"
+----
+
+* *Copia de archivos*: Se copian los archivos de usuario a sus respectivos directorios para facilitar el acceso a información preconfigurada.
+[source,yaml]
+----
+- name: Copiar los archivos "luis1.txt" y "luis2.txt"
+  ansible.builtin.copy:
+    src: ../usuarios/luis/
+    dest: /home/luis
+----
+
+=== Configuración del Servidor FTP Seguro
+
+* *Instalación de vsftpd*: Se instala el paquete `vsftpd` para el servicio FTP.
+[source,yaml]
+----
+- name: Instalar vsftpd
+  ansible.builtin.package:
+    name:
+      - vsftpd
+----
+
+* *Archivo de configuración*: Se copia un archivo personalizado `vsftpd.conf` con las configuraciones necesarias para el servidor.
+[source,yaml]
+----
+- name: Copiar archivo vsftpd.conf
+  ansible.builtin.copy:
+    src: ../vsftpd/vsftpd.conf
+    dest: /etc/
+----
+
+* *Certificados SSL*: Se generan claves y certificados autofirmados para asegurar las conexiones.
+[source,yaml]
+----
+- name: Generar clave privada
+  command:
+    cmd: openssl genrsa -out /etc/ssl/private/sri.key 2048
+----
+
+* *Configuración de usuarios no enjaulados*: Se define una lista de usuarios que no estarán restringidos a su directorio `home`.
+[source,yaml]
+----
+- name: Lista de usuarios no enjaulados
+  ansible.builtin.copy:
+    src: ../vsftpd/vsftpd.chroot_list
+    dest: /etc/
+----
+
+* *Reinicio del servicio*: Se reinicia el servicio `vsftpd` para aplicar los cambios.
+[source,yaml]
+----
+- name: Reiniciar servicio
+  systemd:
+    name: vsftpd
+    enabled: true
+    state: restarted
+----
