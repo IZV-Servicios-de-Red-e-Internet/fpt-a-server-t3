@@ -142,3 +142,29 @@ Ver detalles en: link:./docs/Dns.adoc[Directorio DNS]
 === Configuración de VSFTPD Incluye configuraciones y pruebas de seguridad para el servidor FTP.
 
 Ver detalles en: link:./docs/Vsftpd.adoc[Directorio VSFTPD]
+
+== Documentación
+
+Para ampliar la información sobre esta práctica puede ver nuestro link:https://github.com/IZV-Servicios-de-Red-e-Internet/ftp-a-server-t3/blob/gh-pages/ebook.pdf[PDF] o la carpeta links:https://github.com/IZV-Servicios-de-Red-e-Internet/ftp-a-server-t3/tree/main/docs[docs/].
+
+=== Automatización con Ansible El repositorio incluye playbooks de Ansible para aprovisionar el servidor FTP y DNS de forma automática.
+
+Ver detalles en: link:./docs/Ansible.adoc[Directorio Ansible]
+
+=== Configuración del Servidor DNS Contiene los archivos de configuración de bind para la resolución de nombres en la red.
+
+Ver detalles en: link:./docs/Dns.adoc[Directorio DNS]
+
+=== Configuración de VSFTPD Incluye configuraciones y pruebas de seguridad para el servidor FTP.
+
+Ver detalles en: link:./docs/Vsftpd.adoc[Directorio VSFTPD]
+
+== LICENCIA
+
+Hemos realizado el proyecto bajo la link:https://github.com/IZV-Servicios-de-Red-e-Internet/ftp-a-server-t3/blob/main/LICENSE[Licencia GNU3].
+
+== Contribuidores
+
+link:https://github.com/f12-lab[Manuel L. Quero] - Manager, Supervision, VSFTP y Ansible.
+link:https://github.com/antoniohr4[Antonio Hurtado] - Vagrant, DNS y Ansible.
+link:https://github.com/Niclay14[Nicolas Navarro] - Documentación y Testeo.
