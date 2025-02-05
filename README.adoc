@@ -145,7 +145,7 @@ Ver detalles en: link:./docs/Vsftpd.adoc[Directorio VSFTPD]
 
 == Documentación
 
-Para ampliar la información sobre esta práctica puede ver nuestro link:https://github.com/IZV-Servicios-de-Red-e-Internet/ftp-a-server-t3/blob/gh-pages/ebook.pdf[PDF] o la carpeta links:https://github.com/IZV-Servicios-de-Red-e-Internet/ftp-a-server-t3/tree/main/docs[docs/].
+Para ampliar la información sobre esta práctica puede ver nuestro link:https://github.com/IZV-Servicios-de-Red-e-Internet/ftp-a-server-t3/blob/gh-pages/ebook.pdf[PDF] o la carpeta link:https://github.com/IZV-Servicios-de-Red-e-Internet/ftp-a-server-t3/tree/main/docs[docs/].
 
 === Automatización con Ansible El repositorio incluye playbooks de Ansible para aprovisionar el servidor FTP y DNS de forma automática.
 
