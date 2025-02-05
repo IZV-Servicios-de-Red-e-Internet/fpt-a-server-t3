@@ -166,5 +166,7 @@ Hemos realizado el proyecto bajo la link:https://github.com/IZV-Servicios-de-Red
 == Contribuidores
 
 link:https://github.com/f12-lab[Manuel L. Quero] - Manager, Supervision, VSFTP y Ansible.
+
 link:https://github.com/antoniohr4[Antonio Hurtado] - Vagrant, DNS y Ansible.
+
 link:https://github.com/Niclay14[Nicolas Navarro] - Documentación y Testeo.
